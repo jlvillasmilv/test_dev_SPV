@@ -12,14 +12,20 @@
               <td>
                 Price
               </td>
+              <td>
+                Action
+              </td>
             </thead>
             <tbody>
               <tr v-for="or in order"
                 v-bind:key="or.id"
                 @dblclick="delOrder(or)"> 
                   <td>{{or.name}}</td> 
-                  <td>{{or.name}}</td>
                   <td>{{or.price}}</td>
+                  <td>
+                    <button class="button is-danger" @Click="delOrder(or)">
+                    X</button>
+                  </td>
               </tr>
             </tbody>
           </table>
