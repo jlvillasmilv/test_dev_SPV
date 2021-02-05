@@ -2,12 +2,35 @@
 	<h1>{{ msg }}</h1>
 
   <div class="container">
+
+     <div class="container">
+          <table class="table">
+            <thead>
+              <td>
+                Product
+              </td>
+              <td>
+                Price
+              </td>
+            </thead>
+            <tbody>
+              <tr v-for="or in order"
+                v-bind:key="or.id"
+                @dblclick="delOrder(or)"> 
+                  <td>{{or.name}}</td> 
+                  <td>{{or.name}}</td>
+                  <td>{{or.price}}</td>
+              </tr>
+            </tbody>
+          </table>
+     </div>
+
           <div class="columns is-multiline">
             <div class="column is-one-quarter">
                 <div class="select">
                     <select class="is-hovered" id="categories_select" v-model="category">
                       <option v-for="c in categories"
-                                v-bind:key="c.categori_id" :id="c.categori_id">{{c.name}}</option>
+                                v-bind:key="c.categori_id">{{c.name}}</option>
                     </select>
                   </div>
             </div>
@@ -23,12 +46,16 @@
           </div>
   </div>
 
+ 
+
    <div class="container">
           <div class="columns is-multiline">
             <div class="column is-one-quarter"
              v-for="item in filterProducts"
-                v-bind:key="item.id">
-             <Product  :pd="item"  /> 
+                v-bind:key="item.id"
+                @dblclick="addOrder(item.id, item.name, item.price)">
+             <Product  :pd="item"  />
+
             </div>
           </div>
     </div>
@@ -44,6 +71,7 @@ export default {
     return { 
      products: [],
      categories: [],
+     order: [],
      category: '',
      name: '',
      price: 5000
@@ -76,7 +104,16 @@ export default {
 
     filterProductsByPrice: function(products){
        return products.filter(product => (product.price > 0 && product.price <= this.price) ? product : '')
+    },
+
+    addOrder: function(id,name,price) {
+        this.order.push({ id: id, name: name, price: price});
+    },
+    delOrder: function(event) {
+
+        this.order.splice(this.order.indexOf(event), 1);
     }
+
   },
   computed : {
      filterProducts () {
