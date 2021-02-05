@@ -41,6 +41,7 @@
 
              <div class="column is-one-quarter">
              <input type="number" class="input" placeholder="Search by price" min=0 v-model="price">
+             <input type="range" v-model="price" min="0" max="500000" step="10"/> 
             </div>
 
           </div>
